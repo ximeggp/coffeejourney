@@ -1,0 +1,193 @@
+.navbar-brand {
+    font-family: 'Monsieur La Doulaise', cursive;
+    font-size: 28px;
+}
+
+.nav-link-custom {
+    text-decoration: none;
+    color: #6f4e37;
+    font-family: 'Funnel Display', sans-serif;
+    font-weight: 500px;
+    transition: all 0.3s ease;
+}
+
+.nav-link-custom:hover {
+    color: #7a8c66;
+    letter-spacing: 1px;
+}
+.portada {
+    background-image: url(./img/portada.jpg);
+    height: 80vh;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    font-family: 'Funnel Display', sans-serif;
+    font-size: 30px;
+    color: rgba(255, 255, 255, 0.7);
+    text-align: right;
+}
+@media (max-width: 768px) {
+  .portada {
+    height: 45vh;              
+    background-position: center top; 
+  }
+}
+
+h2 {
+    text-align: center;
+    margin-top: 10px;
+    font-family: 'Monsieur La Doulaise', cursive;
+    font-size: 70px;
+}
+
+h3 {
+    color: #7a8c66;
+    margin-bottom: 10px;
+}
+
+table {
+    text-align: center;
+    font-family: 'Funnel Display', sans-serif;
+}
+
+.custom-table {
+    margin-top: 20px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+.custom-table thead th {
+  background-color: #6f4e37;
+  color: white;
+}
+
+.custom-table tbody tr:nth-child(even) {
+  background-color: #F5E6D3;
+}
+
+.custom-table tbody tr:hover {
+  background-color: #EAD7C4;
+  transition: background-color 0.3s ease;
+}
+
+.table a {
+    display: inline-block;
+    text-decoration: none;
+    font-size: 1.2rem;
+    transition: transform 0.2s ease;
+}
+
+.table a:hover {
+    transform: scale(1.3);
+}
+.rating {
+  font-size: 20px;
+  color: #4b2e2b; 
+}
+
+.divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 50px 0;
+}
+
+.divider::before,
+.divider::after {
+    content: "";
+    flex: 1;
+    height: 2px;
+    background: #6f4e37;
+    margin: 0 15px;
+}
+
+.card-title {
+    font-family: 'Funnel Display', sans-serif;
+    font-weight: bold;
+}
+
+.card-text {
+    font-family: 'Funnel Display', sans-serif;
+}
+
+.card-hover{
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.card-hover:hover {
+   transform: scale(1.05);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+}
+
+.fade-in {
+    animation: aparecer 1s ease-in;
+}
+
+@keyframes aparecer {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.form-label {
+    margin-top: 10px;
+    font-family: 'Funnel Display', sans-serif;
+}
+
+.btn {
+    font-family: 'Funnel Display', sans-serif;
+    transition: all 0.5s ease;
+    border: none;
+    color: #4b2e2b;
+    margin-bottom: 10px;
+    
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    color: #6f4e37;
+    box-shadow: 0 8px 20px rgba(17, 17, 17, 0.5);
+}
+
+.quote-box {
+    font-size: 3.5rem;
+    font-style: italic;
+    font-family: 'Monsieur La Doulaise';
+    color: #6f4e37;
+    text-align: center;
+    padding: 20px;
+}
+
+.custom-footer p {
+    padding: 25px 0;
+    background-color: #fff8f0;
+    color: #6f4e37;
+    font-family: 'Funnel Display', sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+}
+
+.wishlist-card {
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.wishlist-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+}
+
+.card a {
+    font-family: 'Funnel Display', sans-serif;
+    color: #6f4e37;
+    text-decoration: none;
+}
+
+.card a:hover {
+    color: #7a8c66;
+}

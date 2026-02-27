@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="./img/coffee.png" type="image/png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Monsieur+La+Doulaise&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <link rel="stylesheet" href="style.css">
+
+    <title>coffeediary</title>
+</head>
+<body>
+    <section class="fade-in">
+    <!-- navbar -->
+    <nav class="navbar sticky-top" style="background-color:#fff8f0;">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="./img/dc.png" alt="Logo" width="50" height="50" class="d-inline-block align-text-center">
+                xime's coffee diary
+            </a>
+            <div>
+                <a href="wishlist.html" class="nav-link-custom">wishlist</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- fotito en top -->
+    <div class="portada">
+        <p>boscoffee, dgo</p>
+     </div>
+
+     <div class="container-fluid" style="margin-top: 10px;">
+        <h3 style="font-family: 'Monsieur La Doulaise'; font-size: 30px; text-align: center; color: #7a8c66;">Solo una chica amante del café guardando <br> y compartiendo sus recomendaciones, muak</h3>
+     </div>
+
+     <!-- separador -->
+      <div class="divider">
+        <span><i class="fa-solid fa-mug-hot fa-bounce" style="color: #6f4e37;"></i></span>
+      </div>
+
+     <!-- container top 3-->
+      <div class="container">
+        <h2>my top 3 ! ! !</h2>
+        <table class="table custom-table">
+            <thead>
+                <tr>
+                    <th>Cafetería</th>
+                    <th>Pedido</th>
+                    <th>Ubicación</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>Café Loco</td>
+                    <td>Moka Moka (caliente)</td>
+                    <td>
+                        <a href="https://maps.app.goo.gl/2BgZyh53uvFwEq8e6?g_st=iw"> 📍 </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>The Kai Coffee</td>
+                    <td>Moka caliente</td>
+                    <td>
+                        <a href="https://www.google.com/maps/place/the+kai+coffee/data=!4m2!3m1!1s0x8f56719a9085aa57:0xf4a6c6ee8f222ec0?sa=X&ved=1t:242&ictx=111"> 📍 </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Corniche</td>
+                    <td>Chocolate con cardamomo</td>
+                    <td>
+                        <a href="https://www.google.com/maps/place/Corniche+Artisanal+Coffee+%26+Boba/@21.0158932,-89.587854,17z/data=!3m1!4b1!4m6!3m5!1s0x8f567736c3b6868d:0x9f07ad8cd9453ae7!8m2!3d21.0158932!4d-89.587854!16s%2Fg%2F11x6qch57j?entry=ttu&g_ep=EgoyMDI2MDIxOC4wIKXMDSoASAFQAw%3D%3D"> 📍 </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+      </div>
+
+
+    <!-- separador -->
+    <div class="divider" style="margin-top: 50px;">
+        <span><i class="fa-solid fa-mug-hot fa-bounce" style="color: #6f4e37;"></i></span>
+    </div>
+    
+    <!-- siguiente sección -->
+    <h2>mi tour del café</h2>
+
+    <!-- container de contenido-->
+    <div class="container">
+        <h3>Mérida</h3>
+
+        <!-- cards -->
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card h-100 card-hover">
+                    <img src="./img/cl.jpg" class="card-img-top" alt="cafeloco">
+                    <div class="card-body">
+                        <h5 class="card-title">Café Loco</h5>
+                        <p class="card-text">Cafetería surcoreana llegada a Mérida en 2025. <br>
+                            Cuenta no solo con bebidas, sino también con muy ricos postres.<br><br>
+                            <strong>Bebidas favoritas:</strong> <ul>
+                                <li>Moka Moka (70 MXN)</li>
+                                <li>Himalaya Caramel (70 MXN)</li>
+                            </ul>
+                            <strong>Postres favoritos:</strong> <ul>
+                                <li>Affogato (80 MXN)</li>
+                                <li>Queso Moka (80 MXN)</li>
+                            </ul>
+                            <strong>Calificación</strong>
+                            <p class="rating">
+                                <i class="bi bi-cup-hot-fill"></i>
+                                <i class="bi bi-cup-hot-fill"></i>
+                                <i class="bi bi-cup-hot-fill"></i>
+                                <i class="bi bi-cup-hot-fill"></i>
+                                <i class="bi bi-cup-hot-fill"></i>
+                            </p>
+                            <a href="https://cafelococoffee.com/en/pages/menu"><i class="fa-solid fa-bread-slice" style="color:#6f4e37;"></i>Menú</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card h-100 card-hover">
+                    <img src="./img/cacep.jpg" class="card-img-top " alt="cacep">
+                    <div class="card-body">
+                        <h5 class="card-title">Cacep</h5>
+                        <p class="card-text">Cafetería/chocolatería tabasqueña orginalmente fundada en 1987. <br>
+                            Además de tener un menú de bebidas, también cuenta con postres, comidas y una gran variedad de chocolates.<br><br>
+                            <strong>Bebidas favoritas:</strong> <ul>
+                                <li>Chocolate a la leña (70 MXN)</li>
+                                <li>Frappé 70% cacao (70 MXN)</li>
+                            </ul>
+                            <strong>Postres favoritos:</strong> <ul>
+                                <li>Helado de choco-maní (70 MXN)</li>
+                                <li>Almendras con chocolate 70% (105 MXN)</li>
+                                <li>Brownie (30 MXN)</li>
+                            </ul>
+                            <strong>Calificación</strong>
+                            <p class="rating">
+                                <i class="bi bi-cup-hot-fill"></i>
+                                <i class="bi bi-cup-hot-fill"></i>
+                                <i class="bi bi-cup-hot-fill"></i>
+                                <i class="bi bi-cup-hot-fill"></i>
+                                <i class="bi bi-cup-hot"></i>
+                            </p>
+                            <a href="https://www.instagram.com/p/DH4JrqNuR4A/"><i class="fa-solid fa-bread-slice" style="color:#6f4e37;"></i>Promociones</a>  
+                        </p>
+                                        
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card h-100 card-hover">
+                    <img src="./img/cim.jpg" class="card-img-top" alt="cimonnis">
+                    <div class="card-body">
+                        <h5 class="card-title">Cimonni's</h5>
+                        <p class="card-text">Panadería artesanal nacida en Mérida. <br>
+                            Si bien es súper reconocida por sus roles de canela (los cuales son indiscutiblemente deliciosos), también tienen un menú variado de bebidas, sándwiches y galletas.<br><br>
+                            <strong>Bebidas favoritas:</strong> <ul>
+                                <li>Capuccino (55 MXN)</li>
+                                <li>Latte Cinnamon Roll (80 MXN)</li>
+                                <li>Latte Choco Avellana (88 MXN)</li>
+                            </ul>
+                            <strong>Postres favoritos:</strong> <ul>
+                                <li>Rol Dubai (113 MXN)</li>
+                                <li>Rol de Nutella con Nuez (81 MXN)</li>
+                                <li>Galleta de m&m's (75 MXN)</li>
+                            </ul>
+                            <strong>Calificación</strong>
+                            <p class="rating">
+                                <i class="bi bi-cup-hot-fill"></i>
+                                <i class="bi bi-cup-hot-fill"></i>
+                                <i class="bi bi-cup-hot-fill"></i>
+                                <i class="bi bi-cup-hot-fill"></i>
+                                <i class="bi bi-cup-hot-fill"></i>
+                            </p>
+                            <a href="https://cimonnisbackery.pagino.mx/menu"><i class="fa-solid fa-bread-slice" style="color:#6f4e37;"></i>Menú</a>  
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+         <h3 style="margin-top:20px;">Durango</h3>
+        <!-- cards -->
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card h-100 card-hover">
+                    <img src="./img/cucurumbe.jpg" class="card-img-top" alt="cucurumbe">
+                    <div class="card-body">
+                        <h5 class="card-title">Café Cucurumbé</h5>
+                        <p class="card-text">Cafetería con un spot súper bello en cualquier sucursal. <br>
+                            Sus bebidas son muy buenas, pero sin dudar, yo diría que los postres son un MUST.<br><br>
+                            <strong>Bebidas favoritas:</strong> <ul>
+                                <li>Capuccino c/sabor avellana (75 MXN)</li>
+                                <li>Chai Latte (77 MXN)</li>
+                            </ul>
+                            <strong>Postres favoritos:</strong> <ul>
+                                <li>Pastel Alemán (86 MXN)</li>
+                                <li>Cheesecake (86 MXN)</li>
+                            </ul>
+                            <strong>Calificación</strong>
+                            <p class="rating">
+                                <i class="bi bi-cup-hot-fill"></i>
+                                <i class="bi bi-cup-hot-fill"></i>
+                                <i class="bi bi-cup-hot-fill"></i>
+                                <i class="bi bi-cup-hot-fill"></i>
+                                <i class="bi bi-cup-hot"></i>
+                            </p>
+                            <a href="https://www.instagram.com/cucurumbeconsti/?hl=es"><i class="fa-solid fa-bread-slice" style="color:#6f4e37;"></i>Instagram</a>  
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card h-100 card-hover">
+                    <img src="./img/barradecafe.jpg" class="card-img-top " alt="victoriabarradecafe">
+                    <div class="card-body">
+                        <h5 class="card-title">Victoria Barra de Café</h5>
+                        <p class="card-text">Cafetería ubicada en el centro de Durango. <br>
+                            Además de sus bebidas, también cuentan con alimentos salados y waffles deliciosos.<br><br>
+                            <strong>Bebidas favoritas:</strong> <ul>
+                                <li>Capuccino (55 MXN)</li>
+                                <li>Choco Especial (85 MXN)</li>
+                            </ul>
+                            <strong>Postres favoritos:</strong> <ul>
+                                <li>N/A</li>
+                            </ul>
+                            <strong>Calificación</strong>
+                            <p class="rating">
+                                <i class="bi bi-cup-hot-fill"></i>
+                                <i class="bi bi-cup-hot-fill"></i>
+                                <i class="bi bi-cup-hot-fill"></i>
+                                <i class="bi bi-cup-hot-fill"></i>
+                                <i class="bi bi-cup-hot"></i>
+                            </p>
+                            <a href="https://www.instagram.com/vicbarracafe/?hl=es"><i class="fa-solid fa-bread-slice" style="color:#6f4e37;"></i>Instagram</a>  
+                        </p>
+                                        
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card h-100 card-hover">
+                    <img src="./img/caffenio.jpg" class="card-img-top" alt="caffenio">
+                    <div class="card-body">
+                        <h5 class="card-title">Caffenio</h5>
+                        <p class="card-text">Mi imperdible cada que regreso a Durango. <br>
+                            Tiene sucursales en gran parte del norte del país, y también cuenta con postrecitos, alimentos, e incluso termos.<br><br>
+                            <strong>Bebidas favoritas:</strong> <ul>
+                                <li>Lateada de brownie (73 MXN)</li>
+                                <li> Cappuccino (65 MXN)</li>
+                            </ul>
+                            <strong>Postres favoritos:</strong> <ul>
+                                <li>Chocolatín (61 MXN)</li>
+                                <li>Vilatto de Durazno (45 MXN)</li>
+                            </ul>
+                            <strong>Calificación</strong>
+                            <p class="rating">
+                                <i class="bi bi-cup-hot-fill"></i>
+                                <i class="bi bi-cup-hot-fill"></i>
+                                <i class="bi bi-cup-hot-fill"></i>
+                                <i class="bi bi-cup-hot-fill"></i>
+                                <i class="bi bi-cup-hot-fill"></i>
+                            </p>
+                            <a href="https://caffenio.com/cafeterias/menu/"><i class="fa-solid fa-bread-slice" style="color:#6f4e37;"></i>Menú</a>  
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="divider" style="margin-top: 50px;">
+        <span><i class="fa-solid fa-mug-hot fa-bounce" style="color:#6f4e37;"></i></span>
+    </div>
+
+  
+    <h2>¿tienes recomendaciones?</h2>
+    <div class="container">
+        <div class="row align-items-center">
+
+          <!-- formulario -->
+        <div class="col-md-6">
+            <div class="mb-3">
+                <label class="form-label">Brindame tu nombrecito:</label>
+                <input type="text" class="form-control" id="nombre" placeholder="nombre">
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Nombre de la cafetería:</label>
+                <textarea class="form-control" id="cafeteria" rows="2"></textarea>
+            </div>
+            <div class="d-flex align-items-center gap-3 mt-2">
+                <button class="btn" id="btnBuscar" style="background-color: #fff8f0;"><i class="fa-solid fa-magnifying-glass"></i> enviar</button>
+                <p id="mensaje" class="mb-0"></p>
+            </div>
+        </div>
+
+            <div class="col-md-6 d-flex align-items-center justify-content-center">
+                <div class="quote-box">
+                     <p>“nunca es <br> suficiente café.” </p>
+                </div>           
+            </div>
+        </div>
+    </div>
+    </section>
+
+    <!-- footer -->
+     <footer class=" custom-footer text-center mt-5">
+        <p> keep drinking coffee - by xime 2026 </p>
+     </footer>
+
+    <!-- función del formulario -->
+    <script>
+        const boton = document.getElementById("btnBuscar")
+        const mensaje = document.getElementById("mensaje")
+
+        boton.addEventListener("click", function(){
+            const nombre = document.getElementById("nombre").value
+
+            if(nombre.trim() === "") {
+                mensaje.textContent = "Escribe tu nombrecito primero, porfi"
+                mensaje.style.color = "red"
+                mensaje.style.fontFamily = "Funnel Display"
+                return
+            }
+
+            mensaje.textContent = "omggg, te agradezco muchísimo " + nombre + ", prometo ir pronto <3"
+            mensaje.style.color = "#6f4e37"
+            mensaje.style.fontWeight = "500"
+
+            // limpia los espacios en blanco
+            document.getElementById("nombre").value = "";
+            document.getElementById("cafeteria").value = "";
+        })
+    </script>
+
+ 
+</body>
+</html>
