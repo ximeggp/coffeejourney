@@ -19,6 +19,7 @@
 </head>
 <body>
     <section class="fade-in">
+
     <!-- navbar -->
     <nav class="navbar sticky-top" style="background-color:#fff8f0;">
         <div class="container-fluid">
@@ -26,8 +27,10 @@
                 <img src="./img/dc.png" alt="Logo" width="50" height="50" class="d-inline-block align-text-center">
                 xime's coffee diary
             </a>
-            <div>
-                <a href="wishlist.html" class="nav-link-custom">wishlist</a>
+            <div class="d-flex align-items-center gap-3">
+                <a href="wishlist.html" class="nav-link-custom">xime's wishlist</a>
+                <a href="user-wishlist.html" class="nav-link-custom">mi wishlist</a>
+                <div id="auth-links"></div>
             </div>
         </div>
     </nav>
@@ -290,29 +293,41 @@
     <h2>¿tienes recomendaciones?</h2>
     <div class="container">
         <div class="row align-items-center">
-
-          <!-- formulario -->
         <div class="col-md-6">
-            <div class="mb-3">
-                <label class="form-label">Brindame tu nombrecito:</label>
-                <input type="text" class="form-control" id="nombre" placeholder="nombre">
-            </div>
-
+            <p id="mensajeAuth" class="text-center text-danger fw-bold"></p>
+          <!-- formulario -->
+            <form id="formRecomendacion">
+        
             <div class="mb-3">
                 <label class="form-label">Nombre de la cafetería:</label>
-                <textarea class="form-control" id="cafeteria" rows="2"></textarea>
+                <input type="text" id="cafeteria" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">¿Por qué la recomiendas?, ¿qué debería probar?</label>
+                <input type="text" id="comentario" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">¿Qué calificación le darías?</label>
+                <div id="tazas" class="tazas">
+                    <i class="bi bi-cup" data-value="1"></i>
+                    <i class="bi bi-cup" data-value="2"></i>
+                    <i class="bi bi-cup" data-value="3"></i>
+                    <i class="bi bi-cup" data-value="4"></i>
+                    <i class="bi bi-cup" data-value="5"></i>
+                </div>
             </div>
             <div class="d-flex align-items-center gap-3 mt-2">
                 <button class="btn" id="btnBuscar" style="background-color: #fff8f0;"><i class="fa-solid fa-magnifying-glass"></i> enviar</button>
                 <p id="mensaje" class="mb-0"></p>
             </div>
         </div>
-
+        </form>
             <div class="col-md-6 d-flex align-items-center justify-content-center">
                 <div class="quote-box">
                      <p>“nunca es <br> suficiente café.” </p>
                 </div>           
             </div>
+            <div id="recomendaciones-container" class="row mt-4"></div>
         </div>
     </div>
     </section>
@@ -322,29 +337,171 @@
         <p> keep drinking coffee - by xime 2026 </p>
      </footer>
 
-    <!-- función del formulario -->
+    <!-- función del formulario y + -->
     <script>
-        const boton = document.getElementById("btnBuscar")
-        const mensaje = document.getElementById("mensaje")
+        const API = "https://coffee-back-y739.onrender.com/api/recomendaciones"
+        const token = localStorage.getItem("token")
+        const userId = localStorage.getItem("userId")
+        const authDiv = document.getElementById("auth-links")
+        const mensaje = document.getElementById("mensajeAuth")
+        const form = document.getElementById("formRecomendacion")
 
-        boton.addEventListener("click", function(){
-            const nombre = document.getElementById("nombre").value
+        if(!token) {
+            mensaje.innerHTML = `
+            Debes <a class="nav-link-custom" href="login.html">iniciar sesión</a> o <a href="register.html" class="nav-link-custom"> registrarte</a> para dejar una recomendación :) `
+            form.style.display = "none"    
+        }
+        if(token) {
+            authDiv.innerHTML = `
+            <a href="#" class="nav-link-custom ms-2" onclick="logout()">logout</a> `
+        } else {
+            authDiv.innerHTML = `
+            <a href="login.html" class="nav-link-custom ms-2">login</a>
+            <a href="register.html" class="nav-link-custom ms-2">register</a> `
+        } 
+        
+        function logout() {
+            localStorage.removeItem("token")
+            localStorage.removeItem("userId")
+            window.location.href = "index.html"
+        }
 
-            if(nombre.trim() === "") {
-                mensaje.textContent = "Escribe tu nombrecito primero, porfi"
-                mensaje.style.color = "red"
-                mensaje.style.fontFamily = "Funnel Display"
+        async function cargarRecomendaciones() {
+            const res = await fetch(API, {
+                headers: {
+                    "Authorization": "Bearer " + token
+                }
+            })
+
+            const data = await res.json()
+            const contenedor = document.getElementById("recomendaciones-container")
+            contenedor.innerHTML = ""
+
+            data.forEach(item => {
+                contenedor.innerHTML += `
+                <div class="col-md-4">
+                    <div class="card shadow-sm h-100 p-3">
+                        <h5>${item.cafeteria}</h5>
+                        <p>${item.comentario || ""}</p>
+                        <p>${'<i class="bi bi-cup-fill"></i>'.repeat(item.rating)}</p>
+                        <small class="text-muted">
+                            por ${item.user?.nombre || "usuario"}
+                        </small>
+
+                        ${
+                        item.user?._id === userId ?`
+                        <div class="mt-2">
+                            <button class="btn btn-sm mt-2" style="background-color: #fff8f0;"
+                                onclick="editar('${item._id}', '${item.cafeteria}', '${item.comentario}', ${item.rating})">
+                                Editar
+                            </button>
+                            <button class="btn btn-sm mt-2" style="background-color: #EDABA8"
+                                onclick="eliminar('${item._id}')">
+                                Eliminar
+                            </button>
+                        </div>
+                        ` : "" }
+                    </div>
+                </div> `
+            })
+        }
+        let ratingSeleccionado = 0
+        const tazas = document.querySelectorAll("#tazas i")
+
+        tazas.forEach(taza => {
+            taza.addEventListener("click", () => {
+                ratingSeleccionado = taza.dataset.value
+                pintarTazas(ratingSeleccionado)
+            })
+
+            taza.addEventListener("mouseover", () => {
+                pintarTazas(taza.dataset.value)
+            })
+
+            taza.addEventListener("mouseout", () => {
+                pintarTazas(ratingSeleccionado)
+            })
+        })
+
+        function pintarTazas(valor) {
+            tazas.forEach(t => {
+                if (t.dataset.value <= valor) {
+                    t.classList.remove("bi-cup")
+                    t.classList.add("bi-cup-fill", "activa")
+                } else {
+                    t.classList.remove("bi-cup-fill", "activa")
+                    t.classList.add("bi-cup")
+                }
+            })
+        }
+
+        form.addEventListener("submit", async(e) => {
+            e.preventDefault()
+
+            const cafeteria = document.getElementById("cafeteria").value
+            const comentario = document.getElementById("comentario").value
+            const rating = ratingSeleccionado
+
+            if (rating === 0) {
+                alert("Selecciona alguna calificación")
                 return
             }
 
-            mensaje.textContent = "omggg, te agradezco muchísimo " + nombre + ", prometo ir pronto <3"
-            mensaje.style.color = "#6f4e37"
-            mensaje.style.fontWeight = "500"
-
-            // limpia los espacios en blanco
-            document.getElementById("nombre").value = "";
-            document.getElementById("cafeteria").value = "";
+            await fetch(API, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + token
+                },
+                body: JSON.stringify({cafeteria, comentario, rating})
+            })
+            e.target.reset()
+            ratingSeleccionado = 0
+            pintarTazas(0)
+            cargarRecomendaciones()
         })
+
+        async function editar(id, cafeteriaActual, comentarioActual, ratingActual) {
+
+            const cafeteria = prompt("Nueva cafetería:", cafeteriaActual)
+            const comentario = prompt("Nuevo comentario:", comentarioActual)
+            const rating = prompt("Nuevo rating:", ratingActual)
+
+            if (!cafeteria || rating < 1 || rating > 5){
+                alert("Datos inválidos")
+                return
+            }  
+
+            await fetch(`${API}/${id}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + token
+                },
+                body: JSON.stringify({
+                    cafeteria,
+                    comentario,
+                    rating,
+        
+                })
+            })
+
+            cargarRecomendaciones()
+        }   
+
+         async function eliminar(id) {
+            await fetch(`${API}/${id}`, {
+                method: "DELETE",
+                headers: {
+                    "Authorization": "Bearer " + token
+                }
+            })
+            cargarRecomendaciones()
+        }
+
+        cargarRecomendaciones()
+
+
     </script>
 
  
