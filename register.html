@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>registro</title>
+    <link rel="shortcut icon" href="./img/coffee.png" type="image/png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -11,13 +12,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Monsieur+La+Doulaise&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="d-flex align-items-center justify-content-center vh-100">
     <section class="fade-in">
    <div class="card p-4 shadow" style="width: 350px;">
-        <h2 class="mb-3">register</h2>
+        
+        <h2 class="mb-3">register </h2>
 
         <form id="registerForm">
             <input type="text" id="nombre" class="form-control mb-3" placeholder="Escribe tu nombre" required>
@@ -30,6 +33,9 @@
         <p class="mt-3 text-center card-text">¿Ya tienes cuenta? <a href="login.html">login</a></p>
    </div> 
 </section>
+
+ <!-- toastify -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
    <script>
     const API = "https://coffee-back-y739.onrender.com/api/users/register"
 
@@ -42,7 +48,19 @@
         const password2 = document.getElementById("password2").value
 
         if (password !== password2) {
-            alert("Las contraseñas no coinciden):")
+            Toastify({
+                    text: "Las contraseñas no coinciden):",
+                    duration: 3000,
+                    gravity: "top",
+                    position: "center",
+                    stopOnFocus: true,
+                    close: true,
+                    style: {
+                        background: "#D88C8C",
+                        borderRadius: "10px",
+                        fontFamily: "Funnel Display"
+                    }
+                }).showToast()
             return
         }
         
@@ -58,10 +76,36 @@
         const data = await res.json()
 
         if (res.ok) {
-            alert("Usuario creado correctamente :D")
-            window.location.href = "login.html"
+            Toastify({
+                text: "Usuario creado correctamente :D",
+                duration: 2000,
+                gravity: "top",
+                position: "center",
+                topOnFocus: true,
+                style: {
+                    background: "#7A8C66",
+                    borderRadius: "10px",
+                    fontFamily: "Funnel Display"
+                    }
+            }).showToast()
+
+            setTimeout(() => {
+                window.location.href = "login.html"
+            }, 1000)
         } else {
-            alert(data.message || "Hubo un error al registrarse")
+            Toastify({
+                    text: data.message || "Error al registrarse",
+                    duration: 3000,
+                    gravity: "top",
+                    position: "center",
+                    stopOnFocus: true,
+                    close: true,
+                    style: {
+                        background: "#D88C8C",
+                        borderRadius: "10px",
+                        fontFamily: "Funnel Display"
+                    }
+                }).showToast()
         }
     })
    </script>

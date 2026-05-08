@@ -237,11 +237,17 @@ table {
     box-shadow: 0 8px 20px rgba(200, 162, 122, 0.5);
 }
 
+.tazas {
+    display: flex;
+    justify-content: left;
+    gap: 5px;
+    
+}
 .tazas i {
-    font-size: 1.6rem;
+    font-size: 2rem;
     color: #d6cfc7;
     cursor: pointer;
-    transition: 0.2s;
+    transition: 0.2s ease;
 }
 
 .tazas i:hover {
@@ -251,6 +257,13 @@ table {
 .tazas i.activa{
     color: #4b2e2b;
     filter: drop-shadow(0 0 4px rgba(200, 162, 122, 0.5));
+}
+
+.tazas-rating i {
+    color: #c8a27a;
+    font-size: 1.6rem;
+    margin-right: 4px;
+    justify-content: center;
 }
 
 .card-form {
