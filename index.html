@@ -498,6 +498,7 @@
         }
 
         async function cargarMisRecomendaciones() {
+            vistaActual ="mis"
             const res = await fetch(`${API}/misRecomendaciones`, {
                 headers: {
                     "Authorization": "Bearer " + token
