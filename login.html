@@ -17,8 +17,12 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="d-flex align-items-center justify-content-center vh-100">
+     <div id="loader-screen">
+        <div class="coffee-loader"><i class="fa-solid fa-mug-saucer" style="color: rgb(178, 125, 62);"></i></div>
+            <p>loading your coffee...</p>
+    </div>
     <section class="fade-in">
-    <div class="card p-4 shadow" style="width: 350px;">
+    <div class="card p-4 shadow auth-card" style="width: 350px; border-radius: 20px;">
         <h2 class="mb-3">login</h2>
 
         <form id="loginForm">
@@ -55,7 +59,21 @@
                 localStorage.setItem("token", data.token)
                 localStorage.setItem("userId", data._id)
                 localStorage.setItem("nombre", data.nombre)
-                window.location.href = "index.html"
+                Toastify({
+                    text: "Inicio de sesión exitoso <3",
+                    duration: 1800,
+                    gravity: "top",
+                    position: "right",
+                    style: {
+                        background: "#7A8C66",
+                        borderRadius: "10px",
+                        fontFamily: "Funnel Display"
+                    }
+                }).showToast()
+
+                setTimeout(() => {
+                    window.location.href = "index.html"
+                }, 1800)
             } else {
                 Toastify({
                     text: data.message || "Error al iniciar sesión",
@@ -72,6 +90,13 @@
                 }).showToast()
             }
         })
+
+        // loading
+        window.addEventListener("load", () => {
+        setTimeout(() => {
+            document.getElementById("loader-screen").classList.add("hide")
+        }, 1200)
+    })
     </script>
 
 

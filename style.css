@@ -278,3 +278,74 @@ table {
     height: 400px;
     object-fit: cover;
 }
+
+#loader-screen {
+    position: fixed;
+    inset: 0;
+    background: #fff8f0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.5s ease;
+}
+
+#loader-screen.hide {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.coffee-loader {
+    font-size: 4rem;
+    animation: float 1.5s infinite ease-in-out;
+}
+
+#loader-screen p {
+    margin-top: 10px;
+    font-family: 'Funnel Display';
+    color: #6f4e37;
+    letter-spacing: 2px;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+.auth-card {
+    animation: aparecer 0.7s ease;
+}
+@keyframes aparecer {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    } to {
+        opacity: 1;
+        transform: translate(0);
+    }
+}
+
+.btnmisRec {
+    background-color: #D9B681;
+    color: black;
+    border: none;
+    padding: 7px 16px;
+    border-radius: 25px;
+    font-family: 'Funnel Display';
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.btnmisRec:hover {
+    background-color: #C89C5F;
+    transform: translateY(-2px);
+}

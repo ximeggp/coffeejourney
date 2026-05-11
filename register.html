@@ -17,8 +17,12 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="d-flex align-items-center justify-content-center vh-100">
+     <div id="loader-screen">
+        <div class="coffee-loader"><i class="fa-solid fa-mug-saucer" style="color: rgb(178, 125, 62);"></i></div>
+            <p>loading your coffee...</p>
+    </div>
     <section class="fade-in">
-   <div class="card p-4 shadow" style="width: 350px;">
+   <div class="card p-4 shadow auth-card" style="width: 350px; border-radius: 20px;">
         
         <h2 class="mb-3">register </h2>
 
@@ -107,6 +111,12 @@
                     }
                 }).showToast()
         }
+    })
+    // loading
+        window.addEventListener("load", () => {
+        setTimeout(() => {
+            document.getElementById("loader-screen").classList.add("hide")
+        }, 1200)
     })
    </script>
 

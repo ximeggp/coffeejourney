@@ -19,8 +19,12 @@
     <title>coffeediary</title>
 </head>
 <body>
-    <section class="fade-in">
+     <div id="loader-screen">
+        <div class="coffee-loader"><i class="fa-solid fa-mug-saucer" style="color: rgb(178, 125, 62);"></i></div>
+            <p>loading your coffee...</p>
+    </div>
 
+    <section class="fade-in">
     <!-- navbar -->
     <nav class="navbar sticky-top" style="background-color:#fff8f0;">
         <div class="container-fluid">
@@ -290,12 +294,13 @@
         <span><i class="fa-solid fa-mug-hot fa-bounce" style="color:#6f4e37;"></i></span>
     </div>
 
-  
+    <!-- recomendaciones -->
     <h2>¿tienes recomendaciones?</h2>
     <div class="container">
         <div class="row align-items-center">
         <div class="col-md-6">
             <p id="mensajeAuth" class="text-center text-danger fw-bold"></p>
+
           <!-- formulario -->
             <form id="formRecomendacion">
         
@@ -327,6 +332,10 @@
                 <div class="quote-box">
                      <p>“nunca es <br> suficiente café.” </p>
                 </div>           
+            </div>
+            <div class="d-flex gap-1 mb-4">
+                <button class="btnmisRec" style="background-color: #fff8f0;" onclick="cargarRecomendaciones()">Todas</button>
+                <button class="btnmisRec" style="background-color: #D9B681;" onclick="verMisRecomendaciones()">Mis recomendaciones</button>
             </div>
             <div id="recomendaciones-container" class="row mt-4"></div>
         </div>
@@ -377,6 +386,8 @@
 
     <!-- toastify -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <!-- sweetalert2-->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- función del formulario y + -->
     <script>
         const API = "https://coffee-back-y739.onrender.com/api/recomendaciones"
@@ -445,6 +456,71 @@
                 </div> `
             })
         }
+
+        function verMisRecomendaciones() {
+            if(!token) {
+                Toastify({
+                    text: "Debes iniciar sesión",
+                    duration: 2000,
+                    gravity: "top",
+                    position: "right",
+                    stopOnFocus: true,
+                    style: {
+                        background: "#D88C8C",
+                        borderRadius: "10px",
+                        fontFamily: "Funnel Display"
+                    }   
+                }).showToast()
+
+                setTimeout(() => {
+                    window.location.href ="login.html"
+                }, 1800)
+
+                return
+            }
+
+            cargarMisRecomendaciones()
+        }
+
+        async function cargarMisRecomendaciones() {
+            const res = await fetch(`${API}/misRecomendaciones`, {
+                headers: {
+                    "Authorization": "Bearer " + token
+                }
+            }
+        )
+
+        const data = await res.json()
+
+        const contenedor = document.getElementById("recomendaciones-container")
+        contenedor.innerHTML = ""
+
+        data.forEach(item => {
+             contenedor.innerHTML += `
+                <div class="col-md-4 mb-4">
+                    <div class="card card-hover shadow-sm h-100 p-3">
+                        <h5>${item.cafeteria}</h5>
+                        <p>${item.comentario || ""}</p>
+                        <p class="tazas-rating">${'<i class="bi bi-cup-fill"></i>'.repeat(item.rating)}</p>
+                        <small class="text-muted">
+                            por ti
+                        </small>
+
+                        <div class="mt-2">
+                            <button class="btn btn-sm mt-2" style="background-color: #fff8f0;"
+                                onclick="editar('${item._id}', '${item.cafeteria}', '${item.comentario}', ${item.rating})">
+                                Editar
+                            </button>
+                            <button class="btn btn-sm mt-2" style="background-color: #EDABA8"
+                                onclick="eliminar('${item._id}')">
+                                Eliminar
+                            </button>
+                        </div>
+                    </div>
+                </div> `
+            })
+        }
+        
         let ratingSeleccionado = 0
         const tazas = document.querySelectorAll("#tazas i")
 
@@ -516,7 +592,8 @@
                 return
             }
 
-            await fetch(API, {
+            // añadir recomendaciones
+            const res = await fetch(API, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -524,10 +601,41 @@
                 },
                 body: JSON.stringify({cafeteria, comentario, rating})
             })
+            
+            const data = await res.json()
+
+            if(res.ok) {
+                Toastify({
+                    text: "Recomendación agregada correctamente",
+                    duration: 2000,
+                    gravity: "top",
+                    position: "right",
+                    close: true,
+                    style: {
+                        background: "#7A8C66",
+                        borderRadius: "10px",
+                        fontFamily: "Funnel Display"
+                    }
+                }).showToast()
+
             e.target.reset()
             ratingSeleccionado = 0
             pintarTazas(0)
             cargarRecomendaciones()
+
+        } else {
+            Toastify({
+                text: data.message || "Ocurrió un error",
+                duration: 2000,
+                gravity: "top",
+                position: "right",
+                style: {
+                    background: "#D88C8C",
+                    borderRadius: "10px",
+                    fontFamily: "Funnel Display"
+                    }
+            }).showToast()
+        }
         })
 
         let ratingEditar = 0
@@ -584,13 +692,15 @@
             gravity: "top",
             position: "right",
             style: {
-                background: "#D9B681",
-                borderRadius: "10px"
+                background: "#D88C8C",
+                borderRadius: "10px",
+                fontFamily: "Funnel Display"
             }
         }).showToast()
         return
     }
 
+    // editar recomendaciones
     const res = await fetch(`${API}/${id}`, {
         method: "PUT",
         headers: {
@@ -607,13 +717,14 @@
     if(res.ok){
 
         Toastify({
-            text: "Recomendación actualizada",
+            text: "Recomendación actualizada correctamente",
             duration: 2000,
             gravity: "top",
             position: "right",
             style: {
                 background: "#D9B681",
-                borderRadius: "10px"
+                borderRadius: "10px",
+                fontFamily: "Funnel Display"
             }
         }).showToast()
 
@@ -625,22 +736,88 @@
         modal.hide()
 
         cargarRecomendaciones()
+    } else {
+
+        const data = await res.json()
+        Toastify({
+            text: data.message || "No se pudo actualizar",
+            duration: 2000,
+            gravity: "top",
+            position: "right",
+            style: {
+                background: "#D88C8C",
+                borderRadius: "10px",
+                fontFamily: "Funnel Display"
+            }
+        }).showToast()
     }
 })
+        // eliminar recomendacón
+        async function eliminar(id) {
+    
+            const resultado = await Swal.fire({
+                title: "¿Eliminar recomendación?",
+                text: "Esta acción no se puede deshacer ¡!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#7A8C66",
+                cancelButtonColor: "#D88C8C",
+                confirmButtonText: "Sí, eliminar",
+                cancelButtonText: "Cancelar"
+    })
 
-         async function eliminar(id) {
-            await fetch(`${API}/${id}`, {
+    if(!resultado.isConfirmed) {
+        return
+    }
+
+            const res = await fetch(`${API}/${id}`, {
                 method: "DELETE",
                 headers: {
                     "Authorization": "Bearer " + token
                 }
             })
-            cargarRecomendaciones()
+
+            const data = await res.json()
+
+            if(res.ok) {
+                Toastify({
+                    text: data.mensaje,
+                    duration: 2000,
+                    gravity: "top",
+                    position: "right",
+                    style: {
+                        background: "#7A8C66",
+                        borderRadius: "10px",
+                        fontFamily: "Funnel Display"
+                    }
+                }). showToast()
+
+                cargarRecomendaciones()
+            } else {
+               Toastify({
+                    text: data.message || "Error al eliminar",
+                    duration: 2000,
+                    gravity: "top",
+                    position: "right",
+                    style: {
+                        background: "#D88C8C",
+                        borderRadius: "10px",
+                        fontFamily: "Funnel Display"
+                    }
+                }). showToast()
+            }
+            
         }
 
+        // para que se muestren todas las recomendaciones
         cargarRecomendaciones()
-    </script>
 
- 
+    // loading
+    window.addEventListener("load", () => {
+        setTimeout(() => {
+            document.getElementById("loader-screen").classList.add("hide")
+        }, 1200)
+    })
+    </script>
 </body>
 </html>

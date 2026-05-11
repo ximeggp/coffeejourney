@@ -17,6 +17,10 @@
     <title>mi wishlist</title>
 </head>
 <body>
+    <div id="loader-screen">
+        <div class="coffee-loader"><i class="fa-solid fa-mug-saucer" style="color: rgb(178, 125, 62);"></i></div>
+            <p>loading your coffee...</p>
+    </div>
     <section class="fade-in">
         <!-- navbar -->
         <nav class="navbar sticky-top" style="background-color:#fff8f0;">
@@ -101,8 +105,10 @@
      <footer class=" custom-footer text-center mt-5">
         <p> keep drinking coffee - by xime 2026 </p>
      </footer>
-        <!-- toastify -->
+    <!-- toastify -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+     <!-- sweetalert2-->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
     <!-- js -->
      <script>
@@ -182,7 +188,7 @@
                 </div>`
             })
         }
-        // añadir wishlist
+
         document.getElementById("formWishlist").addEventListener("submit", async(e) => {
             e.preventDefault()
             const cafeteria = document.getElementById("cafeteria").value.trim()
@@ -207,7 +213,8 @@
                 return
             }
 
-            await fetch(API, {
+            // añadir wishlist
+            const res = await fetch(API, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -216,8 +223,38 @@
                 body: JSON.stringify({cafeteria, ubicacion, nota, imagen})
             })
 
+            const data = await res.json()
+
+            if (res.ok) {
+                Toastify({
+                    text: "Cafetería agregada a la wishlist :)",
+                    duration: 2000,
+                    gravity: "top",
+                    position: "right",
+                    stopOnFocus: true,
+                    style: {
+                        background: "#7A8C66",
+                        borderRadius: "10px",
+                        fontFamily: "Funnel Display"
+                    }   
+                }).showToast()
+
             e.target.reset()
             cargarWishlist()
+            } else {
+                Toastify({
+                    text: data.message || "Error",
+                    duration: 2000,
+                    gravity: "top",
+                    position: "right",
+                    stopOnFocus: true,
+                    style: {
+                        background: "#D88C8C",
+                        borderRadius: "10px",
+                        fontFamily: "Funnel Display"
+                    }   
+                }).showToast()
+            }
         })
 
         async function toggleVisitado(id, estadoActual) {
@@ -237,7 +274,7 @@
         // editar wishlist
        function editar(id, cafeteria, ubicacion, nota, imagen) {
             document.getElementById("editId").value = id
-            document.getElementById("editCafeteria").value.trim() = cafeteria
+            document.getElementById("editCafeteria").value = cafeteria.trim()
             document.getElementById("editUbicacion").value = ubicacion
             document.getElementById("editNota").value = nota
             document.getElementById("editImagen").value = imagen
@@ -258,6 +295,22 @@
             const nota = document.getElementById("editNota").value
             const imagen = document.getElementById("editImagen").value
 
+            if (!cafeteria.trim()) {
+                Toastify({
+                    text: "Escribe el nombre de la cafetería",
+                    duration: 2000,
+                    gravity: "top",
+                    position: "right",
+                    stopOnFocus: true,
+                    style: {
+                        background: "#D88C8C",
+                        borderRadius: "10px",
+                        fontFamily: "Funnel Display"
+                    }   
+                }).showToast() 
+                return
+            }
+
             await fetch(`${API}/${id}`, {
                 method: "PUT",
                 headers: {
@@ -277,21 +330,84 @@
             )
 
             modal.hide()
+            Toastify({
+                    text: "Cambios guardados correctamente",
+                    duration: 2000,
+                    gravity: "top",
+                    position: "right",
+                    stopOnFocus: true,
+                    style: {
+                        background: "#D9b681",
+                        borderRadius: "10px",
+                        fontFamily: "Funnel Display"
+                    }   
+                }).showToast()
             cargarWishlist()
         })
 
         // eliminar wishlist
         async function eliminar(id) {
-            await fetch(`${API}/${id}`, {
+
+            const resultado = await Swal.fire({
+                title: "¿Eliminar cafetería?",
+                text: "Esta acción no se puede deshacer ¡!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#7A8C66",
+                cancelButtonColor: "#D88C8C",
+                confirmButtonText: "Sí, eliminar",
+                cancelButtonText: "Cancelar"
+    })
+
+        if(!resultado.isConfirmed) {
+            return
+        }
+
+            const res = await fetch(`${API}/${id}`, {
                 method: "DELETE",
                 headers: {
                     "Authorization": "Bearer " + token
                 }
             })
-            cargarWishlist()
-        }
 
+            const data = await res.json()
+
+            if(res.ok) {
+                Toastify({
+                    text: data.mensaje,
+                    duration: 2000,
+                    gravity: "top",
+                    position: "right",
+                    style: {
+                        background: "#7A8C66",
+                        borderRadius: "10px",
+                        fontFamily: "Funnel Display"
+                    }
+                }). showToast()
+            cargarWishlist()
+            } else {
+                Toastify({
+                    text: data.message || "No se pudo eliminar",
+                    duration: 2000,
+                    gravity: "top",
+                    position: "right",
+                    style: {
+                        background: "#D88C8C",
+                        borderRadius: "10px",
+                        fontFamily: "Funnel Display"
+                    }
+                }). showToast()
+            }
+        }
         cargarWishlist()
+        
+        // loading
+        window.addEventListener("load", () => {
+            setTimeout(() => {
+                document.getElementById("loader-screen").classList.add("hide")
+            }, 1200)
+    })
+
      </script>
 </body>
 </html>

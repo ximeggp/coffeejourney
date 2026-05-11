@@ -17,6 +17,11 @@
     <title>wishlist</title>
 </head>
 <body>
+<body>
+    <div id="loader-screen">
+        <div class="coffee-loader"><i class="fa-solid fa-mug-saucer" style="color: rgb(178, 125, 62);"></i></div>
+            <p>loading your coffee...</p>
+    </div>
     <section class="fade-in">
     <!-- navbar -->
     <nav class="navbar sticky-top" style="background-color:#fff8f0;">
@@ -95,6 +100,13 @@
             localStorage.removeItem("userId")
             window.location.href = "index.html"
         }
+
+        // loading
+        window.addEventListener("load", () => {
+        setTimeout(() => {
+            document.getElementById("loader-screen").classList.add("hide")
+        }, 1200)
+    })
      </script>
 </body>
 </html>
