@@ -824,11 +824,16 @@
             
         }
 
+        let vistaActual = "todas"
         // para que se muestren todas las recomendaciones
         cargarRecomendaciones()
 
         setInterval(() => {
-            cargarRecomendaciones()
+            if(vistaActual === "todas") {
+                cargarRecomendaciones()
+            } else {
+                cargarMisRecomendaciones()
+            }
         }, 3000)
 
     // loading
