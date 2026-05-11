@@ -31,7 +31,7 @@
             <input type="email" id="email" class="form-control mb-3" placeholder="Escribe tu email" required>
             <input type="password" id="password" class="form-control mb-3" placeholder="Escribe tu contraseña" required>
             <input type="password" id="password2" class="form-control mb-3" placeholder="Confirma tu contraseña" required>
-            <button class="btn w-100" style="background-color: #fff8f0;">Crear cuenta</button>
+            <button id="btnRegister" class="btn w-100" style="background-color: #fff8f0;">Crear cuenta</button>
         </form>
 
         <p class="mt-3 text-center card-text">¿Ya tienes cuenta? <a href="login.html">login</a></p>
@@ -50,8 +50,15 @@
         const email = document.getElementById("email").value
         const password = document.getElementById("password").value
         const password2 = document.getElementById("password2").value
+        const btn = document.getElementById("btnRegister")
+            btn.disabled = true
+            btn.innerHTML = `<span class="spinner-border spinner-border-sm"></span>
+                            cargando<3... `
 
         if (password !== password2) {
+            btn.disabled = false
+            btn.innerHTML = "Crear cuenta"
+            
             Toastify({
                     text: "Las contraseñas no coinciden):",
                     duration: 3000,
@@ -97,6 +104,9 @@
                 window.location.href = "login.html"
             }, 1000)
         } else {
+
+            btn.disabled = false
+            btn.innerHTML = "Crear cuenta"
             Toastify({
                     text: data.message || "Error al registrarse",
                     duration: 3000,

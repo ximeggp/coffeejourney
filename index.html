@@ -812,6 +812,10 @@
         // para que se muestren todas las recomendaciones
         cargarRecomendaciones()
 
+        setInterval(() => {
+            cargarRecomendaciones()
+        }, 3000)
+
     // loading
     window.addEventListener("load", () => {
         setTimeout(() => {

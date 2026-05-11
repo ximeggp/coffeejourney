@@ -28,7 +28,7 @@
         <form id="loginForm">
             <input type="email"  id="email" class="form-control mb-3" placeholder="Escribe tu email" required>
             <input type="password"  id="password" class="form-control mb-3" placeholder="Escribe tu contraseña" required>
-            <button class="btn w-100" style="background-color: #fff8f0;">Ingresar</button>
+            <button  id="btnLogin" class="btn w-100" style="background-color: #fff8f0;">Ingresar</button>
         </form>
 
         <p class="mt-3 text-center card-text">¿No tienes cuenta aún?, <a href="register.html">regístrate</a></p>
@@ -44,6 +44,10 @@
 
             const email = document.getElementById("email").value
             const password = document.getElementById("password").value
+            const btn = document.getElementById("btnLogin")
+            btn.disabled = true
+            btn.innerHTML = `<span class="spinner-border spinner-border-sm"></span>
+                            preparando todo... `
 
             const res = await fetch(API, {
                 method: "POST",
@@ -75,6 +79,8 @@
                     window.location.href = "index.html"
                 }, 1800)
             } else {
+                btn.disabled = false
+                btn.innerHTML = "Ingresar"
                 Toastify({
                     text: data.message || "Error al iniciar sesión",
                     duration: 3000,
