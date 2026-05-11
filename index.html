@@ -433,6 +433,7 @@
         }
 
         async function cargarRecomendaciones() {
+            vistaActual = "todas"
             const res = await fetch(API, {
                 headers: {
                     "Authorization": "Bearer " + token
