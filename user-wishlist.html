@@ -132,7 +132,21 @@
             localStorage.removeItem("userId")
             window.location.href = "index.html"
            
-            
+            Toastify({
+                text: "Sesión cerrada correctamente",
+                duration: 2000,
+                gravity: "top",
+                position: "right",
+            style: {
+                background: "#7A8C66",
+                borderRadius: "10px",
+                fontFamily: "Funnel Display"
+                }
+            }).showToast()
+
+            setTimeout(() => {
+                window.location.href = "index.html"
+            }, 1800)
         }
 
         if (nombre) {
